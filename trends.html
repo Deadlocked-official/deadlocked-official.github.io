@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deadlock Hero Trends: win rate and pick rate by week</title>
+<meta name="description" content="How every Deadlock hero's win rate and pick rate changed week by week, with patches marked and the biggest risers and fallers.">
+<meta property="og:title" content="Deadlock Hero Trends">
+<meta property="og:description" content="How every Deadlock hero's win rate and pick rate changed week by week, with patches marked and the biggest risers and fallers.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://deadlocked-official.github.io/trends.html">
+<meta property="og:image" content="https://deadlocked-official.github.io/og.png">
+<link rel="canonical" href="https://deadlocked-official.github.io/trends.html">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1513">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sitebar"><div class="wrap">
+  <a class="brand" href="./">Deadlocked</a>
+  <nav aria-label="Site"><a href="./">Home</a><a href="guide.html">Guides</a><a href="builds.html">Builds</a><a href="stats.html">Stats</a><a href="trends.html" aria-current="page">Trends</a><a href="items.html">Items</a><a href="patches.html">Patches</a><a href="player.html">Players</a><a href="match.html">Match</a><a href="tools.html">Tools</a><a href="quiz.html">Quiz</a><a href="./#drills">Drills</a><a href="discord.html" class="nav-discord">Discord bot</a></nav>
+</div></div>
+<header class="masthead compact">
+  <div class="wrap">
+    <p class="kicker">Trends</p>
+    <h1>Hero trends</h1>
+    <p class="lede">Win rate and pick rate for every hero, week by week. Pick up to five heroes to compare. New game patches show as dashed lines.</p>
+  </div>
+</header>
+
+<main class="wrap block">
+  <div class="controls">
+    <label>Show
+      <select id="t-metric"><option value="wr">Win rate</option><option value="pick">Pick rate</option></select>
+    </label>
+    <label>Ranks
+      <select id="t-rank"><option value="all">All ranks</option><option value="high">Oracle and up</option></select>
+    </label>
+  </div>
+  <p class="note" id="t-range"></p>
+  <div class="t-chart" id="t-chart"></div>
+  <ul class="t-legend" id="t-legend"></ul>
+  <div class="duo-cols t-movers" id="t-movers"></div>
+  <h3 class="sub-h">Pick heroes</h3>
+  <div class="picker" id="t-picker"></div>
+  <p class="fine">Rebuilt every Monday from api.deadlock-api.com. Weeks with fewer than 50 games on a hero are left out.</p>
+</main>
+
+<footer class="wrap foot">
+  <p>Unofficial fan site. Not made by or affiliated with Valve. Deadlock and all hero and item art are © Valve Corporation. Data from <a href="https://deadlock-api.com">deadlock-api.com</a>.</p>
+</footer>
+<script src="snapshot.js"></script>
+<script src="history.js"></script>
+<script src="patches.js"></script>
+<script src="common.js"></script>
+<script src="trendspage.js"></script>
+</body>
+</html>

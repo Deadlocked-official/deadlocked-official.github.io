@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deadlock Build Maker: make and share your own build</title>
+<meta name="description" content="Make your own Deadlock build: pick up to 12 items, see the total soul cost, stats and gun DPS, and share it with a link.">
+<meta property="og:title" content="Deadlock Build Maker">
+<meta property="og:description" content="Make your own Deadlock build: pick up to 12 items, see the total soul cost, stats and gun DPS, and share it with a link.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://deadlocked-official.github.io/buildmaker.html">
+<meta property="og:image" content="https://deadlocked-official.github.io/og.png">
+<link rel="canonical" href="https://deadlocked-official.github.io/buildmaker.html">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1513">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sitebar"><div class="wrap">
+  <a class="brand" href="./">Deadlocked</a>
+  <nav aria-label="Site"><a href="./">Home</a><a href="guide.html">Guides</a><a href="builds.html">Builds</a><a href="stats.html">Stats</a><a href="trends.html">Trends</a><a href="items.html">Items</a><a href="patches.html">Patches</a><a href="player.html">Players</a><a href="match.html">Match</a><a href="tools.html" aria-current="page">Tools</a><a href="quiz.html">Quiz</a><a href="./#drills">Drills</a><a href="discord.html" class="nav-discord">Discord bot</a></nav>
+</div></div>
+<header class="masthead compact">
+  <div class="wrap">
+    <p class="kicker"><a href="tools.html">Tools</a> · Build maker</p>
+    <h1>Build maker</h1>
+    <p class="lede">Pick a hero and up to 12 items. Upgrades replace the item they're built from, like in the game. The link updates as you go, so you can share it.</p>
+  </div>
+</header>
+
+<main class="wrap block">
+  <div class="controls">
+    <label>Hero <select id="bm-hero"></select></label>
+    <button type="button" class="btn ghost" id="bm-site">Start from the site build</button>
+    <button type="button" class="btn ghost" id="bm-clear">Clear</button>
+  </div>
+  <p class="note" id="bm-msg" aria-live="polite"></p>
+  <div class="bm-grid">
+    <section>
+      <h3>Your build</h3>
+      <ol class="bm-list" id="bm-list"></ol>
+      <div class="bm-share"><input id="bm-link" readonly aria-label="Link to this build"><button type="button" class="btn" id="bm-copy">Copy link</button></div>
+      <p><a id="bm-calc" href="calc.html">Check its damage in the calculator →</a></p>
+      <div id="bm-sum"></div>
+    </section>
+    <section>
+      <h3>Shop</h3>
+      <div class="controls">
+        <div class="q-modes" id="bm-tabs"><button type="button" class="side on" data-slot="weapon">Weapon</button><button type="button" class="side" data-slot="vitality">Vitality</button><button type="button" class="side" data-slot="spirit">Spirit</button></div>
+        <label class="grow">Search <input id="bm-find" type="search" placeholder="Item name"></label>
+      </div>
+      <div class="bm-cat" id="bm-cat"></div>
+      <p class="fine">Letters are the grades from the <a href="items.html">item tier list</a>.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap foot">
+  <p>Unofficial fan site. Not made by or affiliated with Valve. Deadlock and all hero and item art are © Valve Corporation. Data from <a href="https://deadlock-api.com">deadlock-api.com</a>.</p>
+</footer>
+<script src="snapshot.js"></script>
+<script src="items.js"></script>
+<script src="itemdb.js"></script>
+<script src="guides.js"></script>
+<script src="builds.js"></script>
+<script src="common.js"></script>
+<script src="buildmakerpage.js"></script>
+</body>
+</html>

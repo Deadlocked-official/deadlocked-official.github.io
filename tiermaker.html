@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deadlock Tier List Maker: rank the heroes yourself</title>
+<meta name="description" content="Make your own Deadlock hero tier list from S to F. Drag heroes into rows, then share the link or save it as a picture.">
+<meta property="og:title" content="Deadlock Tier List Maker">
+<meta property="og:description" content="Make your own Deadlock hero tier list from S to F. Drag heroes into rows, then share the link or save it as a picture.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://deadlocked-official.github.io/tiermaker.html">
+<meta property="og:image" content="https://deadlocked-official.github.io/og.png">
+<link rel="canonical" href="https://deadlocked-official.github.io/tiermaker.html">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1513">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sitebar"><div class="wrap">
+  <a class="brand" href="./">Deadlocked</a>
+  <nav aria-label="Site"><a href="./">Home</a><a href="guide.html">Guides</a><a href="builds.html">Builds</a><a href="stats.html">Stats</a><a href="trends.html">Trends</a><a href="items.html">Items</a><a href="patches.html">Patches</a><a href="player.html">Players</a><a href="match.html">Match</a><a href="tools.html" aria-current="page">Tools</a><a href="quiz.html">Quiz</a><a href="./#drills">Drills</a><a href="discord.html" class="nav-discord">Discord bot</a></nav>
+</div></div>
+<header class="masthead compact">
+  <div class="wrap">
+    <p class="kicker"><a href="tools.html">Tools</a> · Tier list maker</p>
+    <h1>Tier list maker</h1>
+    <p class="lede">Drag heroes into the rows (on a phone, tap a hero, then tap a row). It saves in this browser, and the link always shows your current list.</p>
+  </div>
+</header>
+
+<main class="wrap block">
+  <div class="controls">
+    <label class="grow">Title <input id="tm-title" type="search" maxlength="60" placeholder="My Deadlock tier list"></label>
+    <button type="button" class="btn" id="tm-png">Save picture</button>
+    <button type="button" class="btn ghost" id="tm-copy">Copy link</button>
+    <button type="button" class="btn ghost" id="tm-site">Fill by win rate</button>
+    <button type="button" class="btn ghost" id="tm-reset">Start over</button>
+  </div>
+  <p class="note" id="tm-msg" aria-live="polite"></p>
+  <div class="tm-board" id="tm-board"></div>
+  <h3 class="sub-h">Heroes not placed yet</h3>
+  <div class="tm-pool tm-drop" id="tm-pool"></div>
+</main>
+
+<footer class="wrap foot">
+  <p>Unofficial fan site. Not made by or affiliated with Valve. Deadlock and all hero and item art are © Valve Corporation. Data from <a href="https://deadlock-api.com">deadlock-api.com</a>.</p>
+</footer>
+<script src="snapshot.js"></script>
+<script src="common.js"></script>
+<script src="tiermakerpage.js"></script>
+</body>
+</html>

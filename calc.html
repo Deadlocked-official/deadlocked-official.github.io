@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deadlock Damage Calculator: gun DPS and time to kill</title>
+<meta name="description" content="Work out a Deadlock hero's gun DPS, magazine damage and time to kill with any weapon items, against any health and bullet resist.">
+<meta property="og:title" content="Deadlock Damage Calculator">
+<meta property="og:description" content="Work out a Deadlock hero's gun DPS, magazine damage and time to kill with any weapon items, against any health and bullet resist.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://deadlocked-official.github.io/calc.html">
+<meta property="og:image" content="https://deadlocked-official.github.io/og.png">
+<link rel="canonical" href="https://deadlocked-official.github.io/calc.html">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1513">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sitebar"><div class="wrap">
+  <a class="brand" href="./">Deadlocked</a>
+  <nav aria-label="Site"><a href="./">Home</a><a href="guide.html">Guides</a><a href="builds.html">Builds</a><a href="stats.html">Stats</a><a href="trends.html">Trends</a><a href="items.html">Items</a><a href="patches.html">Patches</a><a href="player.html">Players</a><a href="match.html">Match</a><a href="tools.html" aria-current="page">Tools</a><a href="quiz.html">Quiz</a><a href="./#drills">Drills</a><a href="discord.html" class="nav-discord">Discord bot</a></nav>
+</div></div>
+<header class="masthead compact">
+  <div class="wrap">
+    <p class="kicker"><a href="tools.html">Tools</a> · Damage calculator</p>
+    <h1>Damage calculator</h1>
+    <p class="lede">Gun DPS and time to kill for any hero. Tick the items you have, set the target, and see the difference.</p>
+  </div>
+</header>
+
+<main class="wrap block">
+  <div class="controls">
+    <label>Your hero <select id="c-hero"></select></label>
+    <label>Both heroes at
+      <select id="c-lvl"><option value="0">Start of the game</option><option value="10">Level 10 (about 8 min)</option><option value="20" selected>Level 20 (about 20 min)</option><option value="30">Level 30 (late game)</option><option value="35">Max level</option></select>
+    </label>
+    <label>Target <select id="c-target"></select></label>
+    <label>Target health <input id="c-hp" type="number" min="1" step="50" value="1500"></label>
+    <label>Target bullet resist % <input id="c-res" type="number" min="-50" max="90" step="1" value="0"></label>
+  </div>
+  <div id="c-out"></div>
+  <div class="block-head c-head"><h3>Weapon items</h3><button type="button" class="btn ghost" id="c-clear">Clear items</button></div>
+  <div class="c-items" id="c-items"></div>
+</main>
+
+<footer class="wrap foot">
+  <p>Unofficial fan site. Not made by or affiliated with Valve. Deadlock and all hero and item art are © Valve Corporation. Data from <a href="https://deadlock-api.com">deadlock-api.com</a>.</p>
+</footer>
+<script src="snapshot.js"></script>
+<script src="items.js"></script>
+<script src="itemdb.js"></script>
+<script src="guides.js"></script>
+<script src="common.js"></script>
+<script src="calcpage.js"></script>
+</body>
+</html>

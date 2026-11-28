@@ -120,7 +120,7 @@
         var win = m.match_result === m.player_team;
         return '<li class="' + (win ? "w" : "l") + '">' + heroImg(m.hero_id) + '<span class="res">' + (win ? "Win" : "Loss") + '</span>' +
           '<span class="nm">' + esc((byId[m.hero_id] || {}).name || "Hero") + '<small>' + ago(m.start_time) + ' · ' + Math.round(m.match_duration_s / 60) + ' min</small></span>' +
-          '<span class="val">' + m.player_kills + ' / ' + m.player_deaths + ' / ' + m.player_assists + '<small>' + (m.net_worth || 0).toLocaleString("en-US") + ' souls</small></span></li>';
+          '<span class="val">' + m.player_kills + ' / ' + m.player_deaths + ' / ' + m.player_assists + '<small>' + (m.net_worth || 0).toLocaleString("en-US") + ' souls</small></span><a class="m-link" href="match.html#' + m.match_id + '/' + id + '">Review →</a></li>';
       }).join("") + '</ul>';
   }
 

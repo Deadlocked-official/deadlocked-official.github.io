@@ -15,6 +15,8 @@ Slash commands that answer from the Deadlocked website's data, so the bot update
 | `/quiz` | Today's hero quiz and aim challenge |
 | `/weekly-here` | Post "What changed this week" in this channel every Monday (server managers only) |
 | `/weekly-stop` | Stop the Monday posts in this channel |
+| `/patch-alerts-here` | Post here as soon as a new game patch comes out (server managers only) |
+| `/patch-alerts-stop` | Stop the patch posts in this channel |
 
 ## Set it up (about 10 minutes)
 
@@ -27,5 +29,26 @@ Slash commands that answer from the Deadlocked website's data, so the bot update
 5. Double-click **run.bat**. The first start sets things up, then the bot comes online.
    Slash commands can take a few minutes to show up the first time.
 
-The bot is online while that window is open. To keep it running all the time, it needs to run on a computer or
-server that stays on.
+The bot is online while that window is open. On this PC, `autostart.bat` (in your Startup folder as
+"Deadlocked bot") starts it when you log in and restarts it if it stops.
+
+## Keep it online all the time (free cloud server)
+
+Oracle Cloud's "Always Free" plan gives you a small Linux server that never costs anything. Signing up asks for a
+card to check you're a real person, but Always Free servers aren't charged.
+
+1. Sign up at <https://www.oracle.com/cloud/free/> and choose the home region closest to you.
+2. **Create a VM instance**: keep the default name, pick **Ubuntu** as the image and the **Always Free eligible**
+   shape (VM.Standard.E2.1.Micro or Ampere A1). Under SSH keys, choose **Generate a key pair** and download the private key.
+3. When it's running, copy its **Public IP address** and connect from PowerShell:
+   `ssh -i C:\Users\you\Downloads\the-key.key ubuntu@PUBLIC_IP`
+4. On the server, get the bot and run the setup (it asks for your bot token once):
+   ```
+   git clone https://github.com/Deadlocked-official/deadlocked-official.github.io.git
+   cd deadlocked-official.github.io/bot
+   bash linux-setup.sh
+   ```
+5. Once it says Done, turn the bot off on your PC (two copies would answer every command twice): close its window
+   and delete "Deadlocked bot" from your Startup folder (Win+R, `shell:startup`).
+
+To update the bot later: `cd deadlocked-official.github.io && git pull && sudo systemctl restart deadlocked-bot`.

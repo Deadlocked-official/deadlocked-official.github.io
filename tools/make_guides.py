@@ -82,6 +82,8 @@ def main():
         w = weapons.get(items.get("weapon_primary")) or {}
         wi = w.get("weapon_info") or {}
         weapon = None
+        lvl = h.get("standard_level_up_upgrades") or {}
+        boons = sum(1 for v in (h.get("level_info") or {}).values() if isinstance(v, dict) and v.get("use_standard_upgrade"))
         if wi:
             weapon = {
                 "name": w.get("name"),
@@ -92,6 +94,8 @@ def main():
                 "reload": round(num(wi.get("reload_duration")) or 0, 2),
                 "falloff_m": round((num(wi.get("damage_falloff_start_range")) or 0) / UNITS_PER_METER),
                 "shots_per_s": round(num(wi.get("shots_per_second")) or 0, 2),
+                # Each level-up (boon) adds this much damage per bullet, so per shot it's times the pellets.
+                "dmg_lvl": round((num(lvl.get("MODIFIER_VALUE_BASE_BULLET_DAMAGE_FROM_LEVEL")) or 0) * int(num(wi.get("bullets")) or 1), 3),
             }
         kit = []
         for n, slot in enumerate(("signature1", "signature2", "signature3", "signature4")):
@@ -126,7 +130,8 @@ def main():
             "role": role, "playstyle": playstyle, "official": official, "lore": sentences(d.get("lore"), 2),
             "stats": {"health": stat(ss, "max_health"), "regen": stat(ss, "base_health_regen"), "speed": stat(ss, "max_move_speed"),
                       "sprint": stat(ss, "sprint_speed"), "stamina": stat(ss, "stamina"),
-                      "light_melee": stat(ss, "light_melee_damage"), "heavy_melee": stat(ss, "heavy_melee_damage")},
+                      "light_melee": stat(ss, "light_melee_damage"), "heavy_melee": stat(ss, "heavy_melee_damage"),
+                      "hp_lvl": num(lvl.get("MODIFIER_VALUE_BASE_HEALTH_FROM_LEVEL")) or 0, "boons": boons},
             "weapon": weapon, "kit": kit,
         }
     open(os.path.join(site, "guides.js"), "w", encoding="utf-8").write(

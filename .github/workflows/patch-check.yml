@@ -1,0 +1,53 @@
+name: Check for a new game patch
+
+on:
+  schedule:
+    - cron: "17 */2 * * *" # every 2 hours
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compare game values with the saved copy
+        run: python tools/make_patches.py .
+
+      - name: On a new patch, refresh the guides and item list too
+        run: |
+          if git diff --quiet patches.js; then
+            echo "No new patch."
+            exit 0
+          fi
+          python tools/make_items.py . || true
+          python tools/make_guides.py . || true
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "deadlocked-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add patches.js data/gamestate.json items.js guides.js
+          if git diff --cached --quiet; then
+            echo "Nothing to publish."
+            exit 0
+          fi
+          git commit -m "New game patch: update patch tracker ($(date -u +%F))"
+          git pull --rebase
+          git push
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" || echo "Pages build request failed; the next push will publish it."

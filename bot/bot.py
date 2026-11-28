@@ -2,6 +2,7 @@
 
 Commands: /build /counter /guide /tier /item /meta /patch /player /quiz
           /weekly-here (post "What changed" in this channel every Monday) and /weekly-stop
+          /patch-alerts-here (post as soon as a new game patch is found) and /patch-alerts-stop
 
 Setup: see README.md. The bot token goes in a file called .env next to this file:  DISCORD_TOKEN=...
 """
@@ -34,6 +35,13 @@ def load_state():
         return {"channels": [], "last_week": None}
 
 
+def state():
+    s = load_state()
+    s.setdefault("channels", [])
+    s.setdefault("patch_channels", [])
+    return s
+
+
 def save_state(s):
     STATE.write_text(json.dumps(s), encoding="utf-8")
 
@@ -59,6 +67,7 @@ class Bot(discord.Client):
         await self.tree.sync()
         self.refresh.start()
         self.weekly.start()
+        self.patch_watch.start()
 
     @tasks.loop(hours=6)
     async def refresh(self):
@@ -71,23 +80,55 @@ class Bot(discord.Client):
     async def weekly(self):
         now = datetime.datetime.now(datetime.timezone.utc)
         week = now.strftime("%G-W%V")
-        state = load_state()
+        st = state()
         # The website rebuilds Monday 06:00 UTC; post from 08:00 to give it time.
-        if now.weekday() != 0 or now.hour < 8 or state.get("last_week") == week or not state["channels"]:
+        if now.weekday() != 0 or now.hour < 8 or st.get("last_week") == week or not st["channels"]:
             return
         await asyncio.to_thread(self.data.load)
         d = self.data.weekly()
         if d:
-            for cid in state["channels"]:
+            for cid in st["channels"]:
                 ch = self.get_channel(cid)
                 if ch:
                     try:
                         await ch.send(embed=embed(d))
                     except discord.HTTPException as e:
                         print("couldn't post to", cid, e)
-        state["last_week"] = week
-        save_state(state)
+        st["last_week"] = week
+        save_state(st)
 
+    @tasks.loop(minutes=20)
+    async def patch_watch(self):
+        # The website checks for a new game patch every 2 hours; this picks it up and posts it.
+        st = state()
+        try:
+            patches = await asyncio.to_thread(botdata.read_js, "patches.js")
+        except Exception as e:
+            print("patch check failed:", e)
+            return
+        latest = (patches.get("PATCHES") or {}).get("latest")
+        if not latest:
+            return
+        if st.get("last_patch") is None:  # first run: remember the current patch, don't announce it
+            st["last_patch"] = latest
+            save_state(st)
+            return
+        if latest == st["last_patch"]:
+            return
+        await asyncio.to_thread(self.data.load)
+        d = self.data.patch()
+        d["title"] = "New Deadlock patch! " + d["title"].replace("Latest patch: ", "")
+        for cid in st["patch_channels"]:
+            ch = self.get_channel(cid)
+            if ch:
+                try:
+                    await ch.send(embed=embed(d))
+                except discord.HTTPException as e:
+                    print("couldn't post to", cid, e)
+        st["last_patch"] = latest
+        save_state(st)
+
+    @patch_watch.before_loop
     @weekly.before_loop
     @refresh.before_loop
     async def ready_first(self):
@@ -190,10 +231,29 @@ async def quiz_cmd(inter: discord.Interaction):
     await inter.response.send_message(embed=embed(bot.data.quiz()))
 
 
+@bot.tree.command(name="patch-alerts-here", description="Post here as soon as a new game patch comes out")
+@app_commands.default_permissions(manage_guild=True)
+async def patch_alerts_here(inter: discord.Interaction):
+    s = state()
+    if inter.channel_id not in s["patch_channels"]:
+        s["patch_channels"].append(inter.channel_id)
+        save_state(s)
+    await inter.response.send_message("Done. When Valve releases a new patch, I'll post what changed here (checked every couple of hours).", ephemeral=True)
+
+
+@bot.tree.command(name="patch-alerts-stop", description="Stop the new patch posts in this channel")
+@app_commands.default_permissions(manage_guild=True)
+async def patch_alerts_stop(inter: discord.Interaction):
+    s = state()
+    s["patch_channels"] = [c for c in s["patch_channels"] if c != inter.channel_id]
+    save_state(s)
+    await inter.response.send_message("Stopped the patch posts here.", ephemeral=True)
+
+
 @bot.tree.command(name="weekly-here", description="Post 'What changed this week' in this channel every Monday")
 @app_commands.default_permissions(manage_guild=True)
 async def weekly_here(inter: discord.Interaction):
-    s = load_state()
+    s = state()
     if inter.channel_id not in s["channels"]:
         s["channels"].append(inter.channel_id)
         save_state(s)
@@ -203,7 +263,7 @@ async def weekly_here(inter: discord.Interaction):
 @bot.tree.command(name="weekly-stop", description="Stop the Monday posts in this channel")
 @app_commands.default_permissions(manage_guild=True)
 async def weekly_stop(inter: discord.Interaction):
-    s = load_state()
+    s = state()
     s["channels"] = [c for c in s["channels"] if c != inter.channel_id]
     save_state(s)
     await inter.response.send_message("Stopped the Monday posts here.", ephemeral=True)

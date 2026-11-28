@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deadlocked Match Review: see what went right and wrong</title>
+<meta name="description" content="Paste a Deadlock match ID and compare your souls, damage, deaths and item timings with high-rank players on the same hero.">
+<meta property="og:title" content="Deadlocked Match Review">
+<meta property="og:description" content="Paste a Deadlock match ID and compare your souls, damage, deaths and item timings with high-rank players on the same hero.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://deadlocked-official.github.io/match.html">
+<meta property="og:image" content="https://deadlocked-official.github.io/og.png">
+<link rel="canonical" href="https://deadlocked-official.github.io/match.html">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1513">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sitebar"><div class="wrap">
+  <a class="brand" href="./">Deadlocked</a>
+  <nav aria-label="Site"><a href="./">Home</a><a href="guide.html">Guides</a><a href="builds.html">Builds</a><a href="stats.html">Stats</a><a href="trends.html">Trends</a><a href="items.html">Items</a><a href="patches.html">Patches</a><a href="player.html">Players</a><a href="match.html" aria-current="page">Match</a><a href="tools.html">Tools</a><a href="quiz.html">Quiz</a><a href="./#drills">Drills</a><a href="discord.html" class="nav-discord">Discord bot</a></nav>
+</div></div>
+<header class="masthead compact">
+  <div class="wrap">
+    <p class="kicker">Match review</p>
+    <h1>Review a match</h1>
+    <p class="lede">Paste a match ID to see how your farm, damage, deaths and item timings compare with Oracle-and-up players on the same hero.</p>
+  </div>
+</header>
+
+<main class="wrap block">
+  <form class="controls" id="m-form" autocomplete="off">
+    <label class="grow">Match ID
+      <input id="m-q" type="search" inputmode="numeric" placeholder="For example 142461300" required>
+    </label>
+    <button class="btn" type="submit">Review</button>
+  </form>
+  <p class="note" id="m-status">The match ID is in the game under Match history, or open <a href="player.html">your player page</a> and press Review on any recent match.</p>
+  <section id="m-board"></section>
+  <section id="m-review" class="m-review"></section>
+</main>
+
+<footer class="wrap foot">
+  <p>Unofficial fan site. Not made by or affiliated with Valve. Deadlock and all hero and item art are © Valve Corporation. Data from <a href="https://deadlock-api.com">deadlock-api.com</a>.</p>
+</footer>
+<script src="snapshot.js"></script>
+<script src="items.js"></script>
+<script src="itemdb.js"></script>
+<script src="builds.js"></script>
+<script src="common.js"></script>
+<script src="matchpage.js"></script>
+</body>
+</html>
