@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deadlocked Patch Tracker: every Deadlock number that changed</title>
+<meta name="description" content="Every hero, weapon, ability and item number Valve changed in recent Deadlock patches, old value to new value, found straight from the game data.">
+<meta property="og:title" content="Deadlocked Patch Tracker">
+<meta property="og:description" content="Exactly which Deadlock numbers changed in each patch.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://deadlocked-official.github.io/patches.html">
+<meta property="og:image" content="https://deadlocked-official.github.io/og.png">
+<link rel="canonical" href="https://deadlocked-official.github.io/patches.html">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1513">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sitebar"><div class="wrap">
+  <a class="brand" href="./">Deadlocked</a>
+  <nav aria-label="Site"><a href="./">Home</a><a href="guide.html">Guides</a><a href="builds.html">Builds</a><a href="stats.html">Stats</a><a href="items.html">Items</a><a href="patches.html" aria-current="page">Patches</a><a href="player.html">Players</a><a href="draft.html">Draft</a><a href="quiz.html">Quiz</a><a href="./#drills">Drills</a></nav>
+</div></div>
+<header class="masthead compact">
+  <div class="wrap">
+    <p class="kicker">Patch tracker · <span id="pt-date"></span></p>
+    <h1>Patch tracker</h1>
+    <p class="lede">Every hero, weapon, ability and item number that changed between game versions, read straight from the game data.</p>
+  </div>
+</header>
+
+<main class="wrap block">
+  <div class="controls">
+    <label class="grow">Find a hero or item
+      <input id="pt-search" type="search" placeholder="Haze" autocomplete="off">
+    </label>
+  </div>
+  <div id="pt-list"></div>
+  <p class="fine">Checked every week. Arrows show whether a number went up or down, not whether that's good: a lower cooldown is a buff, lower health is a nerf. Game versions are Valve's build numbers. Patches found before the tracker started have no date.</p>
+</main>
+
+<footer class="wrap foot">
+  <p>Unofficial fan site. Not made by or affiliated with Valve. Game data from <a href="https://deadlock-api.com">deadlock-api.com</a>.</p>
+</footer>
+<script src="snapshot.js"></script>
+<script src="patches.js"></script>
+<script src="patchpage.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deadlocked Daily Hero Quiz: guess the Deadlock hero</title>
+<meta name="description" content="A daily Deadlock quiz: guess the hero from its abilities in six tries. New hero every day, same for everyone.">
+<meta property="og:title" content="Deadlocked Daily Hero Quiz">
+<meta property="og:description" content="Guess today's Deadlock hero from its abilities in six tries.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://deadlocked-official.github.io/quiz.html">
+<meta property="og:image" content="https://deadlocked-official.github.io/og.png">
+<link rel="canonical" href="https://deadlocked-official.github.io/quiz.html">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e1513">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sitebar"><div class="wrap">
+  <a class="brand" href="./">Deadlocked</a>
+  <nav aria-label="Site"><a href="./">Home</a><a href="guide.html">Guides</a><a href="builds.html">Builds</a><a href="stats.html">Stats</a><a href="items.html">Items</a><a href="patches.html">Patches</a><a href="player.html">Players</a><a href="draft.html">Draft</a><a href="quiz.html" aria-current="page">Quiz</a><a href="./#drills">Drills</a></nav>
+</div></div>
+<header class="masthead compact">
+  <div class="wrap">
+    <p class="kicker" id="q-kicker">Daily hero quiz</p>
+    <h1>Guess the hero</h1>
+    <p class="lede">Six tries. Every wrong guess unlocks a new clue and tells you how close you were. A new hero every day at midnight UTC, the same for everyone.</p>
+  </div>
+</header>
+
+<main class="wrap block quiz">
+  <div class="q-modes">
+    <button type="button" class="side on" data-mode="daily">Daily</button>
+    <button type="button" class="side" data-mode="practice">Practice (endless)</button>
+  </div>
+  <section class="q-clues" id="q-clues" aria-live="polite"></section>
+  <form class="controls" id="q-form" autocomplete="off">
+    <label class="grow">Your guess
+      <input id="q-input" list="q-heroes" placeholder="Type a hero name" required>
+    </label>
+    <datalist id="q-heroes"></datalist>
+    <button class="btn" type="submit" id="q-submit">Guess</button>
+  </form>
+  <p class="note down" id="q-err" aria-live="polite"></p>
+  <div class="table-scroll"><table class="ledger q-guesses"><thead><tr><th>Guess</th><th>Class</th><th>Difficulty</th><th class="num">Health</th><th class="num">Gun DPS</th></tr></thead><tbody id="q-rows"></tbody></table></div>
+  <section id="q-end" aria-live="polite"></section>
+</main>
+
+<footer class="wrap foot">
+  <p>Unofficial fan site. Not made by or affiliated with Valve. Clues come from the game's own ability text.</p>
+</footer>
+<script src="snapshot.js"></script>
+<script src="guides.js"></script>
+<script src="quizpage.js"></script>
+</body>
+</html>

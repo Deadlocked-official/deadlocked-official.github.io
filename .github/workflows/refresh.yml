@@ -27,6 +27,12 @@ jobs:
       - name: Save last week's data (for "What changed")
         run: mkdir -p "$RUNNER_TEMP/old" && cp tiers.js builds.js itemdb.js "$RUNNER_TEMP/old/" 2>/dev/null || true
 
+      - name: Refresh hero list and saved stats (picks up new heroes)
+        run: python tools/make_snapshot.py .
+
+      - name: Check for a new game patch
+        run: python tools/make_patches.py .
+
       - name: Refresh item list
         run: python tools/make_items.py .
 
@@ -57,7 +63,7 @@ jobs:
         run: |
           git config user.name "deadlocked-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add items.js builds.js tiers.js guides.js itemdb.js changes.js sitemap.xml
+          git add snapshot.js patches.js data/gamestate.json items.js builds.js tiers.js guides.js itemdb.js changes.js sitemap.xml
           if git diff --cached --quiet; then
             echo "Nothing changed this week."
             exit 0

@@ -1,0 +1,5 @@
+bot/.env
+bot/.venv/
+bot/state.json
+__pycache__/
+*.pyc
